@@ -1,21 +1,32 @@
-# Graph ADT Headers
+# Simple Cycle Checker
 
-This archive contains three headers implementing a generic Graph interface,
-plus list- and matrix-backed implementations.
+This bundle adds a header-only function `isSimpleCycle` and a test program
+that exercises it against both the adjacency-list and adjacency-matrix
+graph implementations.
 
-Files:
-- Graph.h
-- AdjListGraph.h
-- AdjMatrixGraph.h
-
-Usage:
-```cpp
-#include "Graph.h"
-#include "AdjListGraph.h"
-#include "AdjMatrixGraph.h"
+## Build & Run (CMake)
+```bash
+cd graph_cycle_check
+cmake -S . -B build
+cmake --build build
+./build/test_cycle
 ```
 
-Notes:
-- Both implementations accept a `bool directed` flag (default: true).
-- For the matrix version, `neighbors(x)` returns a reference to an internal
-  scratch vector. Use it immediately; do not store the reference.
+## Quick Compile (no CMake)
+```bash
+g++ -std=c++17 test_is_simple_cycle.cpp -o test_cycle && ./test_cycle
+```
+
+## Function contract
+```cpp
+template <class N, template<class> class G>
+bool isSimpleCycle(G<N>& g, const std::vector<N>& path);
+```
+*Returns true iff:*
+- `path.size() >= 4`
+- `path.front() == path.back()`
+- Every hop `(path[i] -> path[i+1])` is an edge in `g`
+- No node (except the final repeat of the start) appears more than once
+
+The function is generic over node type `N` and works with both provided graph
+implementations via their `adjacent(u,v)` method.
