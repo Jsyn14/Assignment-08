@@ -4,9 +4,9 @@ This archive contains three headers implementing a generic Graph interface,
 plus list- and matrix-backed implementations.
 
 Files:
-- Graph.h — pure virtual interface.
-- AdjListGraph.h — adjacency list implementation (unordered_map< N, vector<N> >).
-- AdjMatrixGraph.h — adjacency matrix implementation (vector<vector<bool>>).
+- Graph.h
+- AdjListGraph.h
+- AdjMatrixGraph.h
 
 Usage:
 ```cpp
